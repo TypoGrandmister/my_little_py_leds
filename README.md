@@ -9,7 +9,7 @@ to do:<br />
   ~~check how stable PWM is, works well enough for the untrained eye, (might have flash banged my self too)<br />
   add loop back without VB cable <br />
   add low pass step response in the ESP32 effects, maybe pre set effects too?<br />
-  add schamitcs for leds, should i?<br /><br />
+  ~~add schamitcs for leds, should i?, added with explanation <br /><br />
 
 fetures so far:<br />
   adding more ESPs is not hard, just change the sendto IP<br />
