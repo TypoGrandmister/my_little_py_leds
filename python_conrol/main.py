@@ -7,7 +7,7 @@ import numpy as np
 import time
 
 #record
-chunk = 2048
+chunk = 1024
 FORMAT = pyaudio.paInt16
 CHANNELS = 1
 RATE = 44100
