@@ -1,6 +1,9 @@
 #include "WiFi.h"
 #include "AsyncUDP.h"
 
+#define max_PWM 200
+#define PWM_step 50
+
 const char *ssid = "DESKTOP";
 const char *password = "12345678";
 AsyncUDP udp;
@@ -15,6 +18,11 @@ void setup() {
   Serial.begin(115200);
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
+  
+  for (int i=0;i<19;i++){
+  pinMode(pin_channel[i],OUTPUT);
+  }
+  
 if (WiFi.waitForConnectResult() != WL_CONNECTED) {
     Serial.println("WiFi Failed");
     while (1) {
@@ -32,19 +40,19 @@ if (WiFi.waitForConnectResult() != WL_CONNECTED) {
       Serial.println((char)p[1]);
       switch  (p[1]){
         case 'N':
-            channel_power[p[0]-48]=127;
+            channel_power[p[0]-48]=75;
             break;
         case 'R':
             channel_power[p[0]-48]=0;
             break;
         case 'L':
-            if (channel_power[p[0]-48]+15<250){
-            channel_power[p[0]-48]+=15;
+            if (channel_power[p[0]-48]+15<max_PWM){
+            channel_power[p[0]-48]+=PWM_step;
             }
             break;
         case 'Q':
             if (channel_power[p[0]-48]-15>50){
-            channel_power[p[0]-48]-=15;
+            channel_power[p[0]-48]-=PWM_step;
             }
             break;
 
@@ -61,4 +69,5 @@ counter+=2;
 for (int i=0;i<16;i++){
     digitalWrite(pin_channel[i],counter<channel_power[i]);
 }
+  delayMicroseconds(10);
 }
